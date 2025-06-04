@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 
-// Converte a chave pública VAPID (base64) para Uint8Array
 function urlBase64ToUint8Array(base64String: string) {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
   const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
@@ -27,7 +26,7 @@ export default function Home() {
 
       if (existingSubscription) {
         setSubscribed(true);
-        console.log("📌 Subscription já existente encontrada.");
+        console.log("Subscription já existente encontrada.");
       } else {
         setSubscribed(false);
       }
@@ -51,7 +50,7 @@ export default function Home() {
     const subscription = await registration.pushManager.subscribe({
       userVisibleOnly: true,
       applicationServerKey: urlBase64ToUint8Array(
-        process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!
+        process.env.NEXT_PUBLIC_VAPID_KEY!
       ),
     });
 
@@ -107,7 +106,7 @@ export default function Home() {
       </button>
       <button
         onClick={handleUnsubscribe}
-        className="bg-red-600 text-white font-semibold px-4 py-2 rounded hover:bg-red-700 transition"
+        className="cursor-pointer bg-red-600 text-white font-semibold px-4 py-2 rounded hover:bg-red-700 transition"
       >
         Cancelar Notificações
       </button>
