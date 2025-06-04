@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { subscriptions } from "@/lib/subscribe";
 
-
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -16,6 +15,8 @@ export default async function handler(
     // Evitar duplicatas (simples verificação por endpoint)
     if (!subscriptions.find((sub) => sub.endpoint === subscription.endpoint)) {
       subscriptions.push(subscription);
+
+      console.log("Nova inscrição adicionada:", subscription.endpoint);
     }
 
     return res.status(201).json({ message: "Inscrição salva com sucesso!" });

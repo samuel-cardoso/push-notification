@@ -19,7 +19,7 @@ export default async function handler(
 ) {
   const payload = JSON.stringify({
     title: "🚀 Notificação enviada!",
-    body: "Isso é um push real rodando localmente!",
+    body: "DALEEEE!",
   });
 
   try {
