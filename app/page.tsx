@@ -67,6 +67,14 @@ export default function Home() {
     const subscription = await registration.pushManager.getSubscription();
 
     if (subscription) {
+      await fetch("/api/unsubscribe", {
+        method: "POST",
+        body: JSON.stringify({
+          endpoint: subscription.endpoint,
+          removeAll: true,
+        }),
+      });
+
       const success = await subscription.unsubscribe();
       if (success) {
         setSubscribed(false);
@@ -75,7 +83,7 @@ export default function Home() {
   };
 
   const handleSendNotification = async () => {
-    const res = await fetch("/api/notify");
+    const res = await fetch("/api/notify", { method: "POST" });
     await res.json();
   };
 
@@ -106,7 +114,12 @@ export default function Home() {
       </button>
       <button
         onClick={handleUnsubscribe}
-        className="cursor-pointer bg-red-600 text-white font-semibold px-4 py-2 rounded hover:bg-red-700 transition"
+        disabled={!subscribed}
+        className={`cursor-pointer  text-white font-semibold px-4 py-2 rounded  transition ${
+          subscribed
+            ? "bg-red-600 hover:bg-red-700"
+            : "bg-gray-400 cursor-not-allowed"
+        }`}
       >
         Cancelar Notificações
       </button>
