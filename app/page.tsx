@@ -1,18 +1,15 @@
 "use client";
 
-import { useEffect } from "react";
-
 export default function Home() {
-  useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker
-        .register("/sw.js")
-        .then(() => console.log("✅ Service Worker registrado"));
+  // Essa função lida com a ativação do Service Worker e o envio da notificação.
+  const handleAllInOne = async () => {
+    if (Notification.permission === "denied") {
+      alert(
+        "Você bloqueou as notificações. Ative manualmente nas configurações do navegador."
+      );
+      return;
     }
-  }, []);
 
-  const subscribeUser = async () => {
-    console.log("🔔 Tentando ativar notificações...");
     const registration = await navigator.serviceWorker.ready;
 
     const subscription = await registration.pushManager.subscribe({
@@ -25,10 +22,6 @@ export default function Home() {
       body: JSON.stringify(subscription),
     });
 
-    alert("✅ Notificações ativadas!");
-  };
-
-  const sendNotification = async () => {
     const res = await fetch("/api/notify");
     const data = await res.json();
     alert(data.message);
@@ -37,17 +30,10 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
       <button
-        onClick={subscribeUser}
-        className="bg-blue-600 text-white font-semibold px-4 py-2 rounded hover:bg-blue-700 transition"
+        onClick={handleAllInOne}
+        className="bg-purple-600 text-white font-semibold px-4 py-2 rounded hover:bg-purple-700 transition"
       >
-        Ativar Notificações
-      </button>
-
-      <button
-        onClick={sendNotification}
-        className="mt-4 bg-green-600 text-white font-semibold px-4 py-2 rounded hover:bg-green-700 transition"
-      >
-        Enviar Notificação
+        Ativar e Enviar Notificação
       </button>
     </div>
   );

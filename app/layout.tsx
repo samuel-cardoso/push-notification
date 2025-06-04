@@ -13,14 +13,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Notificações Push App",
+  title: "Pushzada",
   description:
-    "Conversas separadas por vendedor, mensagens rápidas em 1 clique e Inteligência Artificial para qualificação de clientes - tudo em um único número de WhatsApp.",
+    "Uma aplicação de exemplo para notificações push com Next.js e Web Push",
   icons: {
-    icon: "/public/icon.png",
-    shortcut: "/icon.png",
-    other: [{ rel: "manifest", url: "/manifest.json" }],
+    icon: "/icon.png",
   },
+  manifest: "/manifest.json",
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({
