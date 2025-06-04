@@ -3,8 +3,8 @@ import webpush from "web-push";
 import { subscriptions } from "@/lib/subscribe";
 
 const vapidKeys = {
-  publicKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
-  privateKey: process.env.NEXT_PUBLIC_VAPID_PRIVATE_KEY!,
+  publicKey: process.env.NEXT_PUBLIC_VAPID_KEY!,
+  privateKey: process.env.VAPID_PRIVATE_KEY!,
 };
 
 webpush.setVapidDetails(
